@@ -1,17 +1,15 @@
-package com.example.codingtest;
+package com.example.codingtest.level1;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class 완주하지못한선수 {
     public static void main(String[] args) {
         String[] participant = {"mislav", "stanko", "mislav", "ana"};
         String[] completion = {"stanko", "ana", "mislav"};
 
-        System.out.println(solutions(participant, completion));
+        System.out.println(solution(participant, completion));
     }
-
-//    1 2 3 3 4 5 6 7
-//    1 2 3 4 5 6 7
 
     public static String solution(String[] participant, String[] completion) {
         String answer = "";
@@ -40,7 +38,7 @@ public class 완주하지못한선수 {
         for (String player : participant) {
             hm.put(player, hm.getOrDefault(player, 0) + 1);
         }
-
+        System.out.println("-------");
         System.out.println(hm);
         for (String player : completion) {
             hm.put(player, hm.get(player) - 1);
