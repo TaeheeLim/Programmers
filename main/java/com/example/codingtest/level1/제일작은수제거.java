@@ -9,7 +9,7 @@ public class 제일작은수제거 {
             int[] data = {4,3,2,1};
             int[] data3 = {6,5,4,1,2,8};
             int[] data2 = {10};
-            System.out.println(solution(data3).length);
+            solution(data3);
     }
 
     public static int[] solution(int[] arr){
@@ -26,12 +26,13 @@ public class 제일작은수제거 {
         int remainingElements = arr.length - (minIndex + 1);
 
         System.arraycopy(arr, 0, destination, 0, minIndex);
+        System.out.println(Arrays.toString(destination));
         System.arraycopy(arr, minIndex + 1, destination, minIndex, remainingElements);
+        System.out.println(Arrays.toString(destination));
 
         if(arr.length == 1){
             return new int[]{-1};
         }
-        System.out.println(Arrays.toString(destination));
         return destination;
     }
 }
