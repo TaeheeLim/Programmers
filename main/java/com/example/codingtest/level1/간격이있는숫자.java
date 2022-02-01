@@ -28,8 +28,19 @@ public class 간격이있는숫자 {
         }
 
         System.out.println(Arrays.toString(resultArray));
-        System.out.println();
 
         return resultArray;
     }
 }
+
+//class Solution {
+//    public long[] solution(int x, int n) {
+//        long[] answer = new long[n];
+//        int i = 0;
+//        for(long j = 1; j <= n; j++) {
+//            answer[i++] = x * j;
+//        }
+//
+//        return answer;
+//    }
+//}
