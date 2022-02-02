@@ -12,10 +12,6 @@ public class 이상한문자 {
 
     public static String solution(String s) {
         String answer = "";
-        String[] arr = s.split(" ");
-
-        System.out.println(Arrays.toString(arr));
-
 
         int count = 0;
         for(int i = 0; i < s.length(); i++){
