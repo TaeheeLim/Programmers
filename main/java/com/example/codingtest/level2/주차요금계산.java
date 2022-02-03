@@ -11,7 +11,7 @@ public class 주차요금계산 {
                           , "19:09 0148 OUT", "22:59 5961 IN", "23:00 5961 OUT"};
 
         int[] fees2 = {1, 461, 1, 10};
-        String[] records2 = {"00:00 1234 IN"};
+        String[] records2 = {"00:00 1234 IN", "00:00 2222 IN", "00:00 3333 IN", "00:00 4444 IN"};
 
         solution(fees, records);
     }
@@ -24,55 +24,89 @@ public class 주차요금계산 {
 
     //0000, 0148, 5961
     public static int[] solution(int[] fees, String[] records) {
-        int[] answer = {};
 
-        List<String> temporalList = new ArrayList<>();
+        Map<String, Car> map = new HashMap<>();
 
-        for(int i = 0; i < records.length; i++){
-            String str = "";
-            String[] split = records[i].split(" ");
-            String temp = split[0];
-            split[0] = split[1];
-            split[1] = temp;
-            str = split[0] + " " + split[1] + " " + split[2];
-            temporalList.add(str);
-        }
-        String[] newRecords = temporalList.toArray(new String[temporalList.size()]);
-        Arrays.sort(newRecords);
-        System.out.println(Arrays.toString(newRecords));
-        Map<String, Integer> map = new HashMap<>();
-
-        int count = 0;
-
-        for(int i = 0; i < newRecords.length; i++){
-            if(i == newRecords.length - 1){
-                map.put(newRecords[i].substring(0, 4), count + 1);
-                count = 0;
-                break;
-            }
-            if(newRecords[i].substring(0, 4).equals(newRecords[i + 1].substring(0, 4))){
-                count++;
+        for (String record : records) {
+            String[] single = record.split(" ");
+            //차가 들어온 경우
+            if (single[2].equals("IN")) {
+                //한번 들어왔다가 나간적이 있는 경우
+                if (map.containsKey(single[1])) {
+                    Car car = map.get(single[1]);
+                    //해당 차량 객체에 fee를 초기화해줌(나간시간 - 들어간시간)... 그러면 총 주차시간이 나옴
+                    car.getFinalFees();
+                    car.setParkingTIme(single[0]);
+                    car.setLeaveTime("23:59");
+                    continue;
+                }
+                //특정 차량이 한번만 IN한 경우 or 처음 IN한 경우
+                map.put(single[1], new Car(single[0]));
             } else {
-                map.put(newRecords[i].substring(0, 4), count + 1);
-                count = 0;
+                //OUT한 경우 leaveTime set해줌
+                map.get(single[1]).setLeaveTime(single[0]);
             }
         }
-        System.out.println(map.toString());
-        System.out.println(Arrays.toString(fees));
-        int[] newAnswer = new int[map.size()];
-        for(int i = 0; i < newRecords.length; i++){
-            if(newRecords.length == 1){
-                String beginHour = newRecords[i].substring(5, 7);
-                String beginMinute = newRecords[i].substring(8, 10);
-                int resultHour = (23 - Integer.parseInt(beginHour)) * 60;
-                int resultMinute = 59 - Integer.parseInt(beginMinute);
-                int sum = resultHour + resultMinute;
-                int result = fees[1] + ((int)(Math.ceil(sum - fees[0] / fees[2])) * fees[3]);
-                newAnswer[i] = result;
-            }
+
+        int[] answer = {};
+        String[] keys = map.keySet().toArray(new String[0]);
+
+        Arrays.sort(keys);
+        System.out.println(Arrays.toString(keys));
+
+        for (String key : keys) {
+            answer = Arrays.copyOf(answer, answer.length + 1);
+            answer[answer.length - 1] = getSingleFee(fees, map.get(key).getFinalFees());
         }
-        
-        return newAnswer;
+        System.out.println(Arrays.toString(answer));
+        return answer;
     }
 
+    public static int getSingleFee(int[] fees, int time){
+        if(fees[0] > time){
+            //주차된 시간 보다 기본 시간이 더 크다면 기본요금 반환
+            return fees[1];
+        } else {
+            //기본 시간이 초과되었다면 문제에서 주어진 공식대로 처리
+            return fees[1] + (int)Math.ceil((double)(time - fees[0])/fees[2]) * fees[3];
+        }
+    }
+}
+
+class Car{
+    String parkingTIme;
+    String leaveTime;
+    int fee;
+
+    Car(String inTime){
+        this.parkingTIme = inTime;
+        this.leaveTime = "23:59";
+        this.fee = 0;
+    }
+
+    public void setParkingTIme(String parkingTIme) {
+        this.parkingTIme = parkingTIme;
+    }
+
+    public void setLeaveTime(String leaveTime) {
+        this.leaveTime = leaveTime;
+    }
+
+    public int getFinalFees(){
+        String[] parkingTimes = this.parkingTIme.split(":");
+        String[] leavingTimes = this.leaveTime.split(":");
+        int parkingTimesInMinutes = Integer.parseInt(parkingTimes[0]) * 60 + Integer.parseInt(parkingTimes[1]);
+        int leavingTimesInMinutes = Integer.parseInt(leavingTimes[0]) * 60 + Integer.parseInt(leavingTimes[1]);
+        this.fee += leavingTimesInMinutes - parkingTimesInMinutes;
+        return this.fee;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                ", parkingTIme='" + parkingTIme + '\'' +
+                ", leaveTime='" + leaveTime + '\'' +
+                ", fee=" + fee +
+                '}';
+    }
 }
