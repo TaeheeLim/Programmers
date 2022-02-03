@@ -49,16 +49,18 @@ public class 주차요금계산 {
         }
 
         int[] answer = {};
+        //map에 담겨있는 key값을 set으로 가져와서 string 배열에 재할당
         String[] keys = map.keySet().toArray(new String[0]);
 
+        //차량번호 순으로 정렬
         Arrays.sort(keys);
-        System.out.println(Arrays.toString(keys));
 
+        //차량 번호를 하나씩 가지고와서 요금계산
         for (String key : keys) {
             answer = Arrays.copyOf(answer, answer.length + 1);
+            //Car class의 getFinalFees 메소드를 다시 한번 실행시켜서 주차된 시간을 계산해서 총 주차시간을 매개변수로 넘겨줌
             answer[answer.length - 1] = getSingleFee(fees, map.get(key).getFinalFees());
         }
-        System.out.println(Arrays.toString(answer));
         return answer;
     }
 
