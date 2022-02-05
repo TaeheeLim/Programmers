@@ -2,6 +2,7 @@ package com.example.codingtest.level1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class 문자열과영단어 {
     public static void main(String[] args) {
@@ -10,18 +11,44 @@ public class 문자열과영단어 {
         String data3 = "2three45sixseven";
         String data4 = "123";
 
-        System.out.println(solution(data1));
+        System.out.println(solution(data4));
     }
 
     public static int solution(String s){
-        int answer = 0;
-        StringBuilder builder = new StringBuilder();
+        String initial = "";
+        String finalAnswer = "";
+        Map<String, Integer> keyAndValue = getKeyAndValue();
 
-        Map<String, Integer> map = new HashMap<>();
-        for(int i = 1; i < 11; i++){
-            map.put("data", i);
+        for(int i = 0; i < s.length(); i++){
+            initial += s.charAt(i);
+            if(Character.isDigit(s.charAt(i))){
+                finalAnswer += s.charAt(i);
+                initial = "";
+            } else {
+                if(keyAndValue.containsKey(initial)){
+                    finalAnswer += keyAndValue.get(initial);
+                    initial = "";
+                }
+            }
         }
 
-        return answer;
+        return Integer.parseInt(finalAnswer);
+    }
+
+    public static Map<String, Integer> getKeyAndValue(){
+        Map<String, Integer> map = new HashMap<>();
+        map.put("zero", 0);
+        map.put("one", 1);
+        map.put("two", 2);
+        map.put("three", 3);
+        map.put("four", 4);
+        map.put("five", 5);
+        map.put("six", 6);
+        map.put("seven", 7);
+        map.put("eight", 8);
+        map.put("nine", 9);
+        map.put("ten", 10);
+
+        return map;
     }
 }
