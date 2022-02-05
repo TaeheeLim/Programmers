@@ -1,8 +1,5 @@
 package com.example.codingtest.level2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 public class 괄호변환 {
@@ -12,8 +9,6 @@ public class 괄호변환 {
         String data3 = "()))((()";
 
         System.out.println(solution(data3));
-//        System.out.println(check("))((")); // false
-//        System.out.println(check("(()())")); // true
     }
 
     public static String solution(String p){
@@ -39,6 +34,13 @@ public class 괄호변환 {
             }
         } //for 끝
 
+        //()))((()
+        // u () v ))((()
+        // u ()))(( v ()
+        // () )))(
+        //()((()
+        System.out.println(u);
+        System.out.println(v);
         // u가 올바른 괄호 문자열인지 확인
         if(check(u)) { // 올바른 괄호 문자열 일때
             // v에 대해 1단계부터 다시 확인
