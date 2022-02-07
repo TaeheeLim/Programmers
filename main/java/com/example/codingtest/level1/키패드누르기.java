@@ -10,7 +10,7 @@ public class 키패드누르기 {
         String hand2 = "left";
         String hand3 = "right";
 
-        System.out.println(solution(numbers1, hand1));
+        System.out.println(solution(numbers2, hand2));
     }
     //    1   2   3
     //    4   5   6
@@ -21,15 +21,88 @@ public class 키패드누르기 {
 
     // 1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5
     public static String solution(int[] numbers, String hand){
-        String answer = "";
-
-        Person person = new Person("*", "#", hand);
+        Person person = new Person("10", "12", hand);
+        StringBuilder builder = new StringBuilder();
 
         for(int number : numbers){
-            
+            if(number == 0) number = 11;
+
+            switch (number){
+                //왼손
+                case 1:
+                    builder.append("L");
+                    person.setLeftPosition("1");
+                    break;
+                case 4:
+                    builder.append("L");
+                    person.setLeftPosition("4");
+                    break;
+                case 7:
+                    builder.append("L");
+                    person.setLeftPosition("7");
+                    break;
+
+                //오른손
+                case 3:
+                    builder.append("R");
+                    person.setRightPosition("3");
+                    break;
+                case 6:
+                    builder.append("R");
+                    person.setRightPosition("6");
+                    break;
+                case 9:
+                    builder.append("R");
+                    person.setRightPosition("9");
+                    break;
+
+                //가운데
+                case 2:
+                    calculateDistance(builder, person, 2);
+                    break;
+                case 5:
+                    calculateDistance(builder, person, 5);
+                    break;
+                case 8:
+                    calculateDistance(builder, person, 8);
+                    break;
+                case 11:
+                    calculateDistance(builder, person, 11);
+                    break;
+            }
+//            LRLLLRLLRRL 답안
+//            LRLLLRLLLRL 내꺼
         }
 
-        return answer;
+        return builder.toString();
+    }
+    // 1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5
+
+    //1, 2, 3, 4, 5, 6, 7, 8, 9, 0
+    public static void calculateDistance(StringBuilder builder, Person person, int num){
+        String leftPosition = person.getLeftPosition();
+        String rightPosition = person.getRightPosition();
+        int substituteLeft = Math.abs(num - Integer.parseInt(leftPosition));
+        int substituteRight = Math.abs(num - Integer.parseInt(rightPosition));
+
+        int leftDistance = (substituteLeft % 3) + (substituteLeft / 3);
+        int rightDistance = (substituteRight % 3) + (substituteRight / 3);
+
+        if(leftDistance > rightDistance){
+            builder.append("R");
+            person.setRightPosition(num + "");
+        } else if(leftDistance < rightDistance){
+            builder.append("L");
+            person.setLeftPosition(num + "");
+        } else {
+            if(person.getHand().equals("right")){
+                builder.append("R");
+                person.setRightPosition(num + "");
+            } else {
+                builder.append("L");
+                person.setLeftPosition(num + "");
+            }
+        }
     }
 }
 
@@ -62,18 +135,5 @@ class Person{
 
     public String getHand() {
         return hand;
-    }
-
-    public void setHand(String hand) {
-        this.hand = hand;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "leftPosition=" + leftPosition +
-                ", rightPosition=" + rightPosition +
-                ", hand='" + hand + '\'' +
-                '}';
     }
 }
