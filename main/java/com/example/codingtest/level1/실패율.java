@@ -1,5 +1,6 @@
 package com.example.codingtest.level1;
 
+import java.security.KeyStore;
 import java.util.*;
 
 public class 실패율 {
@@ -24,45 +25,41 @@ public class 실패율 {
     // N = 5;
     // stages = 2, 1, 2, 6, 2, 4, 3, 3
     public static int[] solution(int N, int[] stages) {
-        int[] answer = {};
-        Map<Integer, Double> eachStagesFailure = new HashMap<>();
-        Map<Double, Integer> reverseMap = new HashMap<>();
-        PriorityQueue<Double> pq = new PriorityQueue<>(Collections.reverseOrder());
-
         int peopleStuckAtStage = 0;
         int peopleOverStage = 0;
 
-        //1, 2, 3, 4, 5 -- 스테이지 번호
-        //1 0.125
-        //2 0.428
-        //3 0.5
-        //4 0.5
-        //5 0
+        List<Stage> stageList = new ArrayList<>();
+
         for(int i = 1; i <= N; i++){
             for(int j = 0; j < stages.length; j++){
-                if(stages[j] >= i){
-                    peopleOverStage++;
-                }
-                if(stages[j] == i){
-                    peopleStuckAtStage++;
-                }
+                if(stages[j] >= i) peopleOverStage++;
+                if(stages[j] == i) peopleStuckAtStage++;
             }
-            System.out.println(peopleStuckAtStage + " / " + peopleOverStage);
             double failureRate = (double)peopleStuckAtStage / peopleOverStage;
-
-            eachStagesFailure.put(i, failureRate);
+            Stage stage = new Stage(i, failureRate);
+            stageList.add(stage);
             peopleStuckAtStage = 0;
             peopleOverStage = 0;
         }
-        System.out.println(eachStagesFailure.toString());
-        Integer[] keys = eachStagesFailure.keySet().toArray(new Integer[0]);
-
-        for(Integer key : keys){
-            pq.add(eachStagesFailure.get(key));
+        Collections.sort(stageList, (o1, o2) -> Double.compare(o2.failureRate, o1.failureRate));
+        for(int i = 0; i < stageList.size(); i++){
+            System.out.println(stageList.get(i).index);
+            System.out.println(stageList.get(i).failureRate);
+            System.out.println("==================");
         }
-        System.out.println("pq = " + pq);
-        
-
+        int[] answer = new int[N];
+        for(int i = 0; i < stageList.size(); i++){
+            answer[i] = stageList.get(i).index;
+        }
         return answer;
+    }
+}
+class Stage{
+    int index;
+    double failureRate;
+
+    Stage(int index, double failureRate){
+        this.index = index;
+        this.failureRate = failureRate;
     }
 }
