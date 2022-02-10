@@ -17,7 +17,6 @@ public class 같은숫자는싫어 {
     //답 4, 3
     public static Integer[] solution(int []arr) {
         Stack<Integer> stack = new Stack<>();
-        List<Integer> list = new ArrayList<>();
 
         for(int i = 0; i < arr.length; i++){
             if(!stack.isEmpty() && (int)stack.peek() == arr[i]){
