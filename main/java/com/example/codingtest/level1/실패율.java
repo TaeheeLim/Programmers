@@ -14,22 +14,10 @@ public class 실패율 {
         int N3 = 6;
         int[] stages3 = {6, 6, 6, 6, 6};
 
-        System.out.println(Arrays.toString(solution(N3, stages3)));
+        System.out.println(Arrays.toString(solution(N, stages)));
     }
 
-
-    //N 은 stage의 개수
-    //stages는 현재 사용자가 위치해 있는 스테이지 번호
-    //stages에는 N이상 N + 1 이하의 자연수가 담겨있다
-    //N + 1은 마지막 스테이지(N번째 스테이지)까지 클리어한 사용자를 나타낸다.
-    //실패율이 높은 스테이지부터 내림차순으로 스테이지 번호 return
-    // 실패율 : 스테이지에 도달했으나 아직 클리어하지 못한 플레이어의 수 / 스테이지에 도달한 플레이어 수
-    //스테이지에 도달한 유저가 없는 경우 해당 스테이지의 실패율은 0 으로 정의한다.
-
-    // N = 5;
-    // stages = 2, 1, 2, 6, 2, 4, 3, 3
     public static int[] solution(int N, int[] stages) {
-
         List<Stage> stageList = new ArrayList<>();
 
         for(int i = 1; i <= N; i++){
@@ -47,6 +35,7 @@ public class 실패율 {
             stageList.add(stage);
         }
 
+        //??
         stageList.sort((o1, o2) -> Double.compare(o2.failureRate, o1.failureRate));
 
         int[] answer = new int[N];
@@ -96,5 +85,4 @@ class Stage{
         this.index = index;
         this.failureRate = failureRate;
     }
-
 }
