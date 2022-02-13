@@ -44,6 +44,7 @@ public class 거리두기확인하기 {
         int[] answer = new int[places.length];
         for(int i = 0; i < places.length; i++){
             char[][] room = new char[5][5];
+            //places 2차원 배열
             for(int j = 0; j < 5; j++){
                 room[j] = places[i][j].toCharArray();
             }
