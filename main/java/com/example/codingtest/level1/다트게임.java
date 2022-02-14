@@ -8,12 +8,17 @@ public class 다트게임 {
 
         System.out.println(solution(dartResult1));
     }
+
+
+    //String dartResult1 = "1D2S#10S";
+    // String dartResult2 = "1D2S0T";
     public static int solution(String dartResult) {
         int[] tries = new int[3];
         char[] result = dartResult.toCharArray();
         int idx = -1;
 
         for (int i = 0; i < result.length; i++) {
+            System.out.println(i);
             if (result[i] >= '0' && result[i] <= '9') {
                 idx++;
                 tries[idx] += Integer.parseInt(String.valueOf(result[i]));
@@ -21,6 +26,8 @@ public class 다트게임 {
                     tries[idx] -= Integer.parseInt(String.valueOf(result[i]));
                     tries[idx] = 10;
                     i++;
+                    System.out.println(i);
+                    System.out.println("===========================");
                 }
             } else if (result[i] == 'D') {
                 tries[idx] *= tries[idx];
