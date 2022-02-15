@@ -8,8 +8,11 @@ public class 타임머신 {
 
     public static long solution(long num){
         long answer = 0;
-        
+        answer = num + 1;
+        String longToString = answer + "";
 
-        return answer;
+        String result = longToString.replaceAll("0", "1");
+
+        return Long.parseLong(result);
     }
 }
