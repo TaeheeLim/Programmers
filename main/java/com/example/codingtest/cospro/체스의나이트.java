@@ -11,7 +11,7 @@ public class 체스의나이트 {
         String data4 = "A1";
         String data5 = "H1";
         String data6 = "H8";
-
+        
         System.out.println(solution(data1));
     }
 
