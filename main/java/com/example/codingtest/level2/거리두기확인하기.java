@@ -1,4 +1,4 @@
-package com.example.codingtest.level1;
+package com.example.codingtest.level2;
 
 import java.util.Arrays;
 import java.util.LinkedList;
