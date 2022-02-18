@@ -1,4 +1,4 @@
-package com.example.codingtest.cospro;
+package com.example.codingtest.cospro.first;
 
 public class 주식 {
     public static void main(String[] args) {

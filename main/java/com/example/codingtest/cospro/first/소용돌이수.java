@@ -1,6 +1,4 @@
-package com.example.codingtest.cospro;
-
-import java.util.Arrays;
+package com.example.codingtest.cospro.first;
 
 public class 소용돌이수 {
     public static void main(String[] args) {

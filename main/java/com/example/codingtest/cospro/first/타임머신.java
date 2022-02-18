@@ -1,4 +1,4 @@
-package com.example.codingtest.cospro;
+package com.example.codingtest.cospro.first;
 
 public class 타임머신 {
     public static void main(String[] args) {

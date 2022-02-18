@@ -1,4 +1,4 @@
-package com.example.codingtest.cospro;
+package com.example.codingtest.cospro.first;
 
 import java.util.Arrays;
 
