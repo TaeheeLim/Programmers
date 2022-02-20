@@ -18,8 +18,9 @@ public class 언제까지오르막길이야 {
         //int[] arr = {3, 1, 2, 4, 5, 1, 2, 2, 3, 4};
 
         for(int i = 1; i < arr.length; i++){
-            if(arr[i] > previousNumber) index++;
-            else {
+            if(arr[i] > previousNumber) {
+                index++;
+            } else {
                 answer = Math.max(answer, index);
                 index = 1;
             }
