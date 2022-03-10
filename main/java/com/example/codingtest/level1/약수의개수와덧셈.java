@@ -23,7 +23,6 @@ public class 약수의개수와덧셈 {
                 answer -= i;
             }
         }
-
         return answer;
     }
 
