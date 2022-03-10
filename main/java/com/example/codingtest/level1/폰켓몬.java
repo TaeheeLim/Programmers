@@ -14,16 +14,11 @@ public class 폰켓몬 {
         System.out.println(solution(num3));
     }
 
-    //N마리의 포켓몬 중 N / 2 의 포켓몬을 가질 수 있다.
     public static int solution(int[] nums) {
-        int answer = 0;
         int limit = nums.length / 2;
         Stack<Integer> pocketBalls = new Stack<>();
         Arrays.sort(nums);
 
-        //1,2,3,3
-        //2,2,3,3,3,4
-        //2,2,2,3,3,3
         for (int i = 0; i < nums.length; i++) {
             if(!pocketBalls.isEmpty() && pocketBalls.peek() == nums[i]){
                 continue;
