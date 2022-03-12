@@ -10,7 +10,6 @@ public class 메뉴리뉴얼 {
     }
 
     public static class Solution {
-
         private Map<String, Integer> menu = new HashMap<>();
 
         public String[] solution(String[] orders, int[] course) {
@@ -29,53 +28,45 @@ public class 메뉴리뉴얼 {
                 List<Map.Entry<String, Integer>> entries = new ArrayList<>(menu.entrySet());
                 //Map Value 값을 내림차순으로 정렬
                 entries.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
-                System.out.println("=====");
-                System.out.println(entries);
-                System.out.println("=====");
+
                 int max = 0;
                 for(Map.Entry<String, Integer> entry : entries) {
                     //메뉴가 2명의 손님으로부터 2번 이상 주분 되어야함
                     if(entry.getValue() > 1 && max <= entry.getValue()) {
                         max = entry.getValue();
                         answer.add(entry.getKey());
-                        System.out.println("-------");
-                        System.out.println(answer.toString());
                     }
                 }
-
                 menu.clear();
             }
 
-            String[] answerArr = answer.toArray(new String[1]);
-            Arrays.sort(answerArr);
+            String[] arr = answer.toArray(new String[1]);
+            Arrays.sort(arr);
 
-            return answerArr;
+            return arr;
         }
 
         //int r = 세트 메뉴 단품 개수
         public void dfs(String[] arr, boolean[] check, int index, int r) {
             if (r == 0) {
-                StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < arr.length; i++) {
                     if (check[i]){
-                        stringBuilder.append(arr[i]);
-                        System.out.println(stringBuilder.toString());
+                        sb.append(arr[i]);
                     }
                 }
 
-                if(menu.containsKey(stringBuilder.toString())){
-                    menu.put(stringBuilder.toString(), menu.get(stringBuilder.toString()) + 1);
+                if(menu.containsKey(sb.toString())){
+                    menu.put(sb.toString(), menu.get(sb.toString()) + 1);
                 } else{
-                    menu.put(stringBuilder.toString(), 1);
+                    menu.put(sb.toString(), 1);
                 }
             } else {
                 //index = 0, r = 2, arr.length = 5, arr = "ABCDE"
                 //index = 1, r = 1, arr.length = 5, arr = "ABCDE"
                 for (int i = index; i < arr.length; i++) {
                     check[i] = true;
-                    System.out.println("위 : " + i);
                     dfs(arr, check, i + 1, r - 1);
-                    System.out.println("밑 : " + i);
                     check[i] = false;
                 }
             }
