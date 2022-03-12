@@ -10,7 +10,7 @@ public class 소수찾기 {
         String number1 = "17";
         String number2 = "011";
 
-        System.out.println(solution(number2));
+        System.out.println(solution(number1));
     }
 
 
@@ -55,7 +55,6 @@ public class 소수찾기 {
                 if(!set.contains(sb.toString())){
                     set.add(sb.toString());
                     if(isPrime(Integer.parseInt(sb.toString()))){
-                        System.out.println(Integer.parseInt(sb.toString()));
                         count++;
                     }
                 }
@@ -63,8 +62,11 @@ public class 소수찾기 {
         } else {
             for(int i = 0; i < n; i++){
                 list.add(arr.remove(i));
+                System.out.println("list : " + list.toString());
+                System.out.println("afterRemoveArr : " + arr.toString());
                 dfs(arr, list, n - 1, r - 1);
                 arr.add(i, list.remove(list.size() - 1));
+                System.out.println("arr : " + arr.toString());
             }
         }
 
