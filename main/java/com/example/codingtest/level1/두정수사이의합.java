@@ -23,7 +23,6 @@ public class 두정수사이의합 {
         list.add(a);
         list.add(b);
         Collections.sort(list);
-        System.out.println(list.toString());
         for(int i = list.get(0); i <= list.get(1); i++){
             answer += i;
         }
